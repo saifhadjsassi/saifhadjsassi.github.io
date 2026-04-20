@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohamed Saifeddine Hadj Sassi | Mixed Reality, Digital Twins, AI</title>
+  <meta
+    name="description"
+    content="Personal website of Mohamed Saifeddine Hadj Sassi — Mixed Reality researcher working on AR/VR, digital twins, AI, IoT, industrial interfaces, and human-centered systems."
+  />
+
+  <style>
+    :root{
+      --bg: #07111f;
+      --bg-2: #0c1830;
+      --panel: rgba(14, 26, 48, 0.78);
+      --panel-2: rgba(255,255,255,0.05);
+      --text: #e8eefc;
+      --muted: #a8b4d3;
+      --line: rgba(255,255,255,0.1);
+      --primary: #67b7ff;
+      --primary-2: #8b5cf6;
+      --accent: #22c55e;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(103,183,255,0.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(139,92,246,0.16), transparent 26%),
+        linear-gradient(180deg, #07111f 0%, #0a1630 40%, #081120 100%);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-shell {
+      width: min(1320px, calc(100% - 20px));
+      margin: 18px auto;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(7, 17, 31, 0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .topbar-inner {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #07111f;
+      background: linear-gradient(135deg, #8dd2ff, #8b5cf6);
+      box-shadow: 0 10px 30px rgba(103,183,255,0.35);
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      min-width: 0;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 0.98rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-sub {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      padding: 10px 12px;
+      border-radius: 12px;
+      transition: 0.25s ease;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      font-weight: 650;
+      border: 1px solid transparent;
+      transition: 0.28s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      box-shadow: 0 16px 36px rgba(103,183,255,0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hero {
+      position: relative;
+      padding: 76px 0 34px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: auto -20% -30% auto;
+      width: 540px;
+      height: 540px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(103,183,255,0.14), transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.95fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #d7e4ff;
+      font-size: 0.84rem;
+      margin-bottom: 18px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.4rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: #90d6ff;
+    }
+
+    .hero p.lead {
+      margin: 20px 0 0;
+      font-size: 1.07rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 64ch;
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-meta {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .meta-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .meta-card .k {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .meta-card .v {
+      font-size: 1rem;
+      font-weight: 650;
+      line-height: 1.4;
+    }
+
+    .hero-art {
+      position: relative;
+      min-height: 520px;
+    }
+
+    .art-frame {
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(103,183,255,0.32), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(139,92,246,0.26), transparent 24%),
+        linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+      box-shadow: var(--shadow);
+    }
+
+    .art-grid {
+      position: absolute;
+      inset: 22px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      grid-template-rows: 1.1fr 1fr;
+      gap: 14px;
+    }
+
+    .glass {
+      border-radius: 22px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent 45%);
+      pointer-events: none;
+    }
+
+    .art-panel-large {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background:
+        radial-gradient(circle at top left, rgba(103,183,255,0.20), transparent 32%),
+        linear-gradient(180deg, rgba(9,18,35,0.4), rgba(9,18,35,0.85));
+    }
+
+    .art-panel-large .tag {
+      font-size: 0.78rem;
+      color: #cfe6ff;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 14px;
+    }
+
+    .art-panel-large h3 {
+      margin: 0;
+      font-size: 1.4rem;
+      line-height: 1.2;
+    }
+
+    .art-panel-large p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .art-panel-small {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
+    }
+
+    .art-panel-small h4,
+    .art-panel-wide h4 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .art-panel-small p,
+    .art-panel-wide p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .art-panel-wide {
+      grid-column: 1 / -1;
+      padding: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 14px;
+      align-items: stretch;
+      background:
+        linear-gradient(90deg, rgba(103,183,255,0.08), rgba(139,92,246,0.06));
+    }
+
+    .mini-stat {
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    section.block {
+      padding: 32px 0;
+    }
+
+    .section-head {
+      margin-bottom: 22px;
+    }
+
+    .section-kicker {
+      color: #9bcfff;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .section-desc {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 75ch;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 1.12rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .chips {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.88rem;
+      color: #d9e6ff;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 18px;
+      padding: 20px;
+      border-radius: 20px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .timeline-date {
+      color: #9bcfff;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.02em;
+    }
+
+    .timeline-body h3 {
+      margin: 0 0 6px;
+      font-size: 1.08rem;
+    }
+
+    .timeline-body .role {
+      color: #dbe7ff;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 0.96rem;
+    }
+
+    .timeline-body p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .timeline-body ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .timeline-body li + li {
+      margin-top: 6px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .grid-3,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-meta {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .art-panel-wide {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar-inner {
+        padding: 12px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+
+      .hero-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      .art-grid {
+        position: relative;
+        inset: auto;
+        padding: 18px;
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-art {
+        min-height: auto;
+      }
+
+      .art-frame {
+        position: relative;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-badge">SHS</div>
+          <div class="brand-text">
+            <div class="brand-title">Mohamed Saifeddine Hadj Sassi</div>
+            <div class="brand-sub">Mixed Reality · Digital Twins · AI · IoT</div>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#publications">Publications</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">
+              <span class="dot"></span>
+              Postdoctoral Researcher in Mixed Reality at LIST
+            </div>
+
+            <h1>
+              Building calm,
+              <span>human-centered systems</span>
+              with XR, digital twins and AI
+            </h1>
+
+            <p class="lead">
+              I am Mohamed Saifeddine Hadj Sassi, a researcher and engineer working across
+              Mixed Reality, industrial digitalization, AR/VR interfaces, IoT, machine learning,
+              and data-driven decision support. My work connects advanced technology with usable,
+              safe and meaningful interaction.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="mailto:saif.hadj-sassi@list.lu">Email me</a>
+              <a class="btn btn-ghost" href="#projects">View projects</a>
+              <a class="btn btn-ghost" href="https://orcid.org/0000-0002-6147-6921" target="_blank" rel="noreferrer">ORCID</a>
+            </div>
+
+            <div class="hero-meta">
+              <div class="meta-card">
+                <div class="k">Current role</div>
+                <div class="v">Postdoctoral Researcher, LIST</div>
+              </div>
+
+              <div class="meta-card">
+                <div class="k">Core domains</div>
+                <div class="v">AR/VR, Digital Twins, AI, IoT</div>
+              </div>
+
+              <div class="meta-card">
+                <div class="k">Location</div>
+                <div class="v">Luxembourg</div>
+              </div>
+
+              <div class="meta-card">
+                <div class="k">Contact</div>
+                <div class="v">saif.hadj-sassi@list.lu</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-art reveal">
+            <div class="art-frame">
+              <div class="art-grid">
+                <div class="glass art-panel-large">
+                  <div class="tag">Research focus</div>
+                  <h3>Mixed Reality interfaces for industrial and operational environments</h3>
+                  <p>
+                    From first-responder training and hazard simulations to wagon and stage
+                    management in digital twins, I design systems that make complex operations
+                    visible, interactive and safer.
+                  </p>
+                </div>
+
+                <div class="glass art-panel-small">
+                  <div>
+                    <h4>Dual PhD profile</h4>
+                    <p>
+                      Applied Electronics for AR/VR systems, and Computer Systems Engineering
+                      for IoT, communication technologies and AI-based data-driven solutions.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="glass art-panel-wide">
+                  <div class="mini-stat">
+                    <strong>CACTUS</strong>
+                    <span>AR interfaces for wagon and stage management in digital twins.</span>
+                  </div>
+                  <div class="mini-stat">
+                    <strong>RISARX</strong>
+                    <span>Hazard training, object tracking, and radiological incident support.</span>
+                  </div>
+                  <div class="mini-stat">
+                    <strong>ImmerSAFE</strong>
+                    <span>Simulation-based VR training for firefighters and critical safety.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="block">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="section-kicker">About</div>
+            <h2 class="section-title">A research profile at the intersection of immersion, intelligence and usability</h2>
+            <p class="section-desc">
+              My background combines research, engineering and international collaboration.
+              I work on immersive interfaces, operational safety, AI-supported systems,
+              rehabilitation-oriented XR applications, and industrial digitalization.
+              I am especially interested in technologies that help people understand and act
+              within complex real-world environments.
+            </p>
+          </div>
+
+          <div class="grid-3">
+            <article class="card reveal">
+              <h3>Mixed Reality & XR</h3>
+              <p>
+                Design and development of AR/VR systems for training, monitoring,
+                rehabilitation, industrial visualization, and operational control.
+              </p>
+              <div class="chips">
+                <span class="chip">Unity</span>
+                <span class="chip">C#</span>
+                <span class="chip">Oculus</span>
+                <span class="chip">AR interfaces</span>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>Digital Twins & Industrial Interaction</h3>
+              <p>
+                Building interfaces that connect digital representations with real operational
+                contexts, supporting decision making, coordination and safer workflows.
+              </p>
+              <div class="chips">
+                <span class="chip">Digital twins</span>
+                <span class="chip">Industrial UX</span>
+                <span class="chip">Operational control</span>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>AI, IoT & Data-Driven Systems</h3>
+              <p>
+                Applying machine learning, data architectures and intelligent monitoring to
+                problems in air quality, anomaly detection, interaction and decision support.
+              </p>
+              <div class="chips">
+                <span class="chip">Python</span>
+                <span class="chip">Deep learning</span>
+                <span class="chip">IoT</span>
+                <span class="chip">Analytics</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" class="block">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="section-kicker">Experience</div>
+            <h2 class="section-title">Selected positions</h2>
+            <p class="section-desc">
+              My path spans research institutes, industry and academic environments across
+              Luxembourg, Italy, Tunisia, Norway and wider European collaborations.
+            </p>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-item reveal">
+              <div class="timeline-date">2024 — now</div>
+              <div class="timeline-body">
+                <h3>Luxembourg Institute of Science and Technology (LIST)</h3>
+                <div class="role">Postdoctoral Researcher in Mixed Reality</div>
+                <p>
+                  Development of advanced Mixed Reality user interfaces for Horizon and FNR-funded projects.
+                </p>
+                <ul>
+                  <li>Contributed to the RISARX project for first-responder radiological incident training.</li>
+                  <li>Leading work related to AR interfaces for wagon and stage management in the CACTUS project.</li>
+                  <li>Focused on human-centered interaction for complex operational systems.</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="timeline-item reveal">
+              <div class="timeline-date">2022 — 2024</div>
+              <div class="timeline-body">
+                <h3>Luxembourg Institute of Science and Technology (LIST)</h3>
+                <div class="role">Research Engineer in Mixed Reality</div>
+                <p>
+                  Worked on AR systems for hazard training, physical object tracking and radiation-related scenarios.
+                </p>
+                <ul>
+                  <li>Developed immersive systems within the STARRI project.</li>
+                  <li>Prepared workshops and live demonstrations for stakeholders, military and first responders.</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="timeline-item reveal">
+              <div class="timeline-date">2019 — 2021</div>
+              <div class="timeline-body">
+                <h3>Leonardo SpA, Rome</h3>
+                <div class="role">Research Engineer (Early Research Stage)</div>
+                <p>
+                  Enrolled in the ImmerSAFE Marie Curie H2020 framework for AR and VR training systems.
+                </p>
+                <ul>
+                  <li>Worked with Italian firefighter rescue units on simulation-based immersive training.</li>
+                  <li>Contributed to safety-focused VR and human factors research.</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="timeline-item reveal">
+              <div class="timeline-date">2018 — 2019</div>
+              <div class="timeline-body">
+                <h3>Ecole Nationale d'Ingénieurs de Sfax (ENIS)</h3>
+                <div class="role">Research Engineer</div>
+                <p>
+                  Developed IoT systems for air-quality assessment and immersive visual technologies.
+                </p>
+                <ul>
+                  <li>Worked on communication and computing systems for analytics and industrial applications.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+            <section id="projects" class="block">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="section-kicker">Projects</div>
+            <h2 class="section-title">Selected research and engineering work</h2>
+            <p class="section-desc">
+              A few examples of projects across AR, VR, digital twins, rehabilitation,
+              air-quality monitoring, industrial interfaces and intelligent systems.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <article class="card reveal">
+              <h3>CACTUS</h3>
+              <p>
+                Development of advanced AR interfaces for wagon movement and stage management
+                within digital twin environments, in collaboration with LIST and Waagner Biro Stage Systems.
+              </p>
+              <div class="chips">
+                <span class="chip">AR</span>
+                <span class="chip">Digital Twins</span>
+                <span class="chip">Unity</span>
+                <span class="chip">Python</span>
+                <span class="chip">Node.js</span>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>RISARX</h3>
+              <p>
+                Enhancement of user experience and immersive interaction for hazard training,
+                physical object tracking and radiation-emission awareness.
+              </p>
+              <div class="chips">
+                <span class="chip">AR training</span>
+                <span class="chip">UX</span>
+                <span class="chip">Unity</span>
+                <span class="chip">Java</span>
+                <span class="chip">Python</span>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>ImmerSAFE — Firefighter VR Training</h3>
+              <p>
+                Simulation-based virtual reality training for firefighters, developed in
+                cooperation with Leonardo, Roma Tre and Italian safety stakeholders.
+              </p>
+              <div class="chips">
+                <span class="chip">VR</span>
+                <span class="chip">Critical safety</span>
+                <span class="chip">Unity</span>
+                <span class="chip">Human factors</span>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>Upper Limb Rehabilitation in VR</h3>
+              <p>
+                Immersive virtual reality applications for rehabilitation, including shoulder
+                movement evaluation and therapy-oriented interaction with Oculus Quest 2.
+              </p>
+              <div class="chips">
+                <span class="chip">Rehabilitation</span>
+                <span class="chip">Oculus Quest 2</span>
+                <span class="chip">Validation</span>
+                <span class="chip">VR</span>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>Indoor Air Quality Monitoring</h3>
+              <p>
+                IoT, deep learning and augmented reality approaches for indoor air-quality
+                monitoring, prediction and cognitive visualization.
+              </p>
+              <div class="chips">
+                <span class="chip">IoT</span>
+                <span class="chip">Air quality</span>
+                <span class="chip">Deep learning</span>
+                <span class="chip">AR</span>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>AR Support for Accessibility</h3>
+              <p>
+                Research and development for AR-based support systems including text and
+                object visualization to help visually impaired users navigate information.
+              </p>
+              <div class="chips">
+                <span class="chip">Accessibility</span>
+                <span class="chip">AR</span>
+                <span class="chip">Computer vision</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="section-kicker">Education</div>
+            <h2 class="section-title">Academic background</h2>
+          </div>
+
+          <div class="grid-2">
+            <article class="card reveal">
+              <h3>PhD in Applied Electronics</h3>
+              <p>
+                University Roma Tre, Rome — focused on augmented and virtual reality systems
+                in operative control rooms, within the Marie Skłodowska-Curie ImmerSAFE network.
+              </p>
+            </article>
+
+            <article class="card reveal">
+              <h3>PhD in Computer Systems Engineering</h3>
+              <p>
+                University of Sfax — focused on IoT systems for indoor air-quality monitoring,
+                immersive visualization, communication technologies and AI-based assessment.
+              </p>
+            </article>
+
+            <article class="card reveal">
+              <h3>Master’s Degree in Enterprise Systems Engineering</h3>
+              <p>
+                High Institute of Computer Science and Multimedia of Sfax — European Tempus
+                framework, taught in English, graduated first in class.
+              </p>
+            </article>
+
+            <article class="card reveal">
+              <h3>Bachelor’s Degree in Computer Science and Multimedia</h3>
+              <p>
+                Foundation in software, multimedia systems and information technology,
+                followed by international mobility and advanced research training.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="publications" class="block">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="section-kicker">Publications</div>
+            <h2 class="section-title">Selected work</h2>
+            <p class="section-desc">
+              A few representative publications across XR, rehabilitation, AI, IoT and
+              industrial monitoring.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <article class="card reveal">
+              <h3>Pozyx Technology with SDN for Advanced Indoor Air Quality Monitoring and Management</h3>
+              <p>Soft Computing, 2024</p>
+              <div class="chips">
+                <a class="chip" href="https://link.springer.com/article/10.1007/s00500-024-09952-0" target="_blank" rel="noreferrer">Open paper</a>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>Sustainability and Human-Computer Interactions: Challenges for Future Research</h3>
+              <p>ERCIM News, 2024</p>
+              <div class="chips">
+                <a class="chip" href="https://ercim-news.ercim.eu/images/stories/EN138/EN138-web.pdf" target="_blank" rel="noreferrer">Open paper</a>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>Definition of Guidelines for VR Application Design Based on Visual Attention</h3>
+              <p>Multimedia Tools and Applications, 2023</p>
+              <div class="chips">
+                <a class="chip" href="https://link.springer.com/article/10.1007/s11042-023-17488-y" target="_blank" rel="noreferrer">Open paper</a>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>Design Cognitive IoT Architecture Framework for Immersive Visual Technologies of Air Quality Monitoring Systems</h3>
+              <p>Multimedia Tools and Applications, 2023</p>
+              <div class="chips">
+                <a class="chip" href="https://link.springer.com/article/10.1007/s11042-023-17249-x" target="_blank" rel="noreferrer">Open paper</a>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>Evaluating the Accuracy of Oculus Quest 2 for Upper Limb Rehabilitation</h3>
+              <p>Sensors, 2022</p>
+              <div class="chips">
+                <a class="chip" href="https://www.mdpi.com/1424-8220/22/15/5511" target="_blank" rel="noreferrer">Open paper</a>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>Comprehensive Survey on Air Quality Monitoring Systems Based on Emerging Computing and Communication Technologies</h3>
+              <p>Computer Networks</p>
+              <div class="chips">
+                <a class="chip" href="https://www.sciencedirect.com/science/article/pii/S1389128622000998" target="_blank" rel="noreferrer">Open paper</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="section-kicker">Links</div>
+            <h2 class="section-title">Profiles and contact</h2>
+          </div>
+
+          <div class="grid-2">
+            <article class="card reveal">
+              <h3>Professional profiles</h3>
+              <p>
+                Use these links to connect with my publications and research profile.
+              </p>
+              <div class="chips">
+                <a class="chip" href="https://orcid.org/0000-0002-6147-6921" target="_blank" rel="noreferrer">ORCID</a>
+                <a class="chip" href="https://scholar.google.com/citations?user=34ktonkAAAAJ" target="_blank" rel="noreferrer">Google Scholar</a>
+                <a class="chip" href="https://github.com/saifhadjsassi" target="_blank" rel="noreferrer">GitHub</a>
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <h3>Languages and strengths</h3>
+              <p>
+                Arabic (native), English (B2), French (intermediate). Strong focus on teamwork,
+                leadership, adaptability, communication, and research-driven technical execution.
+              </p>
+              <div class="chips">
+                <span class="chip">Teamwork</span>
+                <span class="chip">Leadership</span>
+                <span class="chip">Human-centered design</span>
+                <span class="chip">Industrial research</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="block">
+        <div class="container">
+          <div class="card reveal" style="padding: 28px;">
+            <div class="section-kicker">Contact</div>
+            <h2 class="section-title" style="margin-bottom: 12px;">Let’s build meaningful immersive systems</h2>
+            <p class="section-desc" style="margin-top: 0;">
+              I am open to collaborations in Mixed Reality, digital twins, industrial interfaces,
+              rehabilitation, AI-supported interaction and applied research.
+            </p>
+
+            <div class="hero-actions" style="margin-top: 20px;">
+              <a class="btn btn-primary" href="mailto:saif.hadj-sassi@list.lu">saif.hadj-sassi@list.lu</a>
+              <a class="btn btn-ghost" href="tel:+393382233230">+39 3382233230</a>
+              <a class="btn btn-ghost" href="https://scholar.google.com/citations?user=34ktonkAAAAJ" target="_blank" rel="noreferrer">Google Scholar</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="block" style="padding-top: 14px;">
+        <div class="container">
+          <div class="card reveal" style="padding: 20px;">
+            <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+              <div>
+                <strong>Mohamed Saifeddine Hadj Sassi</strong><br />
+                <span style="color: var(--muted);">Mixed Reality · AI · Digital Twins · IoT</span>
+              </div>
+              <div style="color: var(--muted); text-align:right;">
+                <div>saifhadjsassi.github.io</div>
+                <div>Built as a single-file GitHub Pages website</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+          </main>
+  </div>
+
+  <script>
+    const reveals = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+        }
+      });
+    }, {
+      threshold: 0.12
+    });
+
+    reveals.forEach((el) => observer.observe(el));
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener("click", function(e) {
+        const id = this.getAttribute("href");
+        if (!id || id === "#") return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  </script>
+</body>
+</html>
