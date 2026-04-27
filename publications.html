@@ -1,865 +1,1275 @@
-document.addEventListener("DOMContentLoaded", function () {
-  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
-    console.warn("GSAP or ScrollTrigger is missing.");
-    return;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Publications — Mohamed Saifeddine Hadj Sassi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Publications of Mohamed Saifeddine Hadj Sassi — XR, rehabilitation, IoT, air quality monitoring, AR, accessibility, deep learning and cognitive systems."
+  />
+  <link rel="stylesheet" href="style.css" />
 
-  gsap.registerPlugin(ScrollTrigger);
+  <style>
+    /* =========================================================
+       PUBLICATIONS PAGE ONLY
+    ========================================================= */
 
-  /* =========================================================
-     HELPERS
-  ========================================================= */
+    .pub-page-wrap {
+      background: #e5edff;
+    }
 
-  const $ = (selector, parent = document) => parent.querySelector(selector);
-  const $$ = (selector, parent = document) => gsap.utils.toArray(parent.querySelectorAll(selector));
-  const exists = (selector, parent = document) => !!parent.querySelector(selector);
+    .pub-intro {
+      background: #e0ecff;
+      padding: 70px 40px 30px;
+    }
 
-  function animateOnScroll(selector, vars = {}) {
-    const items = $$(selector);
-    if (!items.length) return;
+    .pub-intro-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
 
-    items.forEach((item, index) => {
-      gsap.from(item, {
-        y: vars.y ?? 40,
-        autoAlpha: vars.autoAlpha ?? 0,
-        scale: vars.scale ?? 1,
-        duration: vars.duration ?? 0.8,
-        ease: vars.ease ?? "power2.out",
-        delay: vars.delayEach ? index * vars.delayEach : 0,
-        scrollTrigger: {
-          trigger: vars.trigger || item,
-          start: vars.start || "top 80%",
-          toggleActions: vars.toggleActions || "play none none reverse"
-        }
-      });
-    });
-  }
+    .pub-stats {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
 
-  /* =========================================================
-     BASIC ENTRANCES
-  ========================================================= */
+    .pub-stat {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(148,163,184,0.35);
+      border-radius: 20px;
+      padding: 18px 16px;
+      box-shadow: 0 12px 28px rgba(15,23,42,0.12);
+    }
 
-  $$(".hero-right").forEach((right) => {
-    gsap.from(right, {
-      y: 40,
-      autoAlpha: 0,
-      duration: 1.1,
-      ease: "power3.out"
-    });
-  });
+    .pub-stat-number {
+      font-size: clamp(24px, 4vw, 34px);
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
 
-  $$(".hero-main-media").forEach((media) => {
-    gsap.from(media, {
-      scale: 1.12,
-      y: 20,
-      autoAlpha: 0,
-      duration: 1.2,
-      ease: "power3.out"
-    });
-  });
+    .pub-stat-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1d4ed8;
+    }
 
-  if (exists(".hero-bg-words span")) {
-    gsap.to(".hero-bg-words span", {
-      xPercent: (i) => (i % 2 === 0 ? -12 : 10),
-      yPercent: (i) => (i % 2 === 0 ? 6 : -8),
-      rotation: (i) => (i % 2 === 0 ? -6 : 5),
-      ease: "sine.inOut",
-      duration: 8,
-      repeat: -1,
-      yoyo: true
-    });
-  }
+    .pub-stat-note {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #475569;
+    }
 
-  /* =========================================================
-     HERO OPTIONS
-  ========================================================= */
+    .pub-featured {
+      background: #dbeafe;
+      padding: 60px 40px 80px;
+    }
 
-  ScrollTrigger.matchMedia({
-    "(min-width: 768px)": function () {
-      /* ---------------- OPTION 1 ---------------- */
-      if (exists("#heroOption1")) {
-        const heroTL1 = gsap.timeline({
-          scrollTrigger: {
-            trigger: "#heroOption1",
-            start: "top top",
-            end: "+=220%",
-            scrub: true,
-            pin: true
-          }
-        });
+    .pub-featured-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
 
-        heroTL1
-          .to(".hero1-main-media", {
-            scale: 0.86,
-            yPercent: -8,
-            duration: 1.2,
-            ease: "none"
-          }, 0)
-          .to(".hero1-right", {
-            yPercent: -30,
-            autoAlpha: 0,
-            duration: 1.0,
-            ease: "none"
-          }, 0)
-          .to(".hero1-bg-words span:nth-child(1)", {
-            xPercent: -40,
-            rotation: -12,
-            ease: "none"
-          }, 0)
-          .to(".hero1-bg-words span:nth-child(2)", {
-            xPercent: 25,
-            rotation: 10,
-            ease: "none"
-          }, 0)
-          .to(".hero1-bg-words span:nth-child(3)", {
-            xPercent: -30,
-            rotation: -8,
-            ease: "none"
-          }, 0)
-          .to(".hero1-grid-frame", {
-            autoAlpha: 1,
-            scale: 1,
-            y: 0,
-            duration: 1.2,
-            ease: "power2.out"
-          }, 0.35)
-          .from(".hero1-grid-frame img", {
-            y: 60,
-            autoAlpha: 0,
-            stagger: 0.15,
-            duration: 0.9,
-            ease: "power2.out"
-          }, 0.45)
-          .to(".hero1-bg-words span", {
-            autoAlpha: 0,
-            duration: 0.8,
-            ease: "power1.out"
-          }, 1.4);
+    .pub-featured-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .pub-feature-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+      background: #ffffff;
+      border: 1px solid rgba(148,163,184,0.35);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(15,23,42,0.15);
+    }
+
+    .pub-feature-top {
+      position: relative;
+      min-height: 210px;
+      overflow: hidden;
+      background: #0f172a;
+    }
+
+    .pub-feature-top img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.92;
+    }
+
+    .pub-badge-row {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      z-index: 2;
+    }
+
+    .pub-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,0.85);
+      font-size: 11px;
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    .pub-feature-body {
+      padding: 18px 18px 20px;
+      background: linear-gradient(135deg, #ffffff, #f8fbff);
+    }
+
+    .pub-feature-kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+
+    .pub-feature-title {
+      font-size: 21px;
+      line-height: 1.28;
+      color: #0f172a;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .pub-feature-authors {
+      font-size: 13px;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+
+    .pub-feature-venue {
+      font-size: 13px;
+      color: #475569;
+      margin-bottom: 12px;
+    }
+
+    .pub-feature-desc {
+      font-size: 14px;
+      color: #1e293b;
+      margin-bottom: 14px;
+    }
+
+    .pub-feature-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pub-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: #eff6ff;
+      border: 1px solid rgba(37,99,235,0.18);
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .pub-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(37,99,235,0.15);
+    }
+
+    .pub-library {
+      background: #e0ecff;
+      padding: 62px 40px 84px;
+    }
+
+    .pub-library-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .pub-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+      margin-bottom: 26px;
+    }
+
+    .pub-filter-chip {
+      font-size: 11px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,0.08);
+      background: rgba(255,255,255,0.88);
+      color: #0f172a;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pub-year-block + .pub-year-block {
+      margin-top: 24px;
+    }
+
+    .pub-year-card {
+      background: #ffffff;
+      border: 1px solid rgba(148,163,184,0.38);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(15,23,42,0.12);
+    }
+
+    .pub-year-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 22px;
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border-bottom: 1px solid rgba(148,163,184,0.22);
+    }
+
+    .pub-year-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .pub-year-count {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #2563eb;
+    }
+
+    .pub-items {
+      padding: 8px 0;
+    }
+
+    .pub-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: start;
+      padding: 18px 22px;
+      border-bottom: 1px solid rgba(148,163,184,0.18);
+    }
+
+    .pub-item:last-child {
+      border-bottom: none;
+    }
+
+    .pub-item-main {
+      min-width: 0;
+    }
+
+    .pub-item-title {
+      font-size: 17px;
+      line-height: 1.35;
+      color: #0f172a;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .pub-item-authors {
+      font-size: 13px;
+      color: #334155;
+      margin-bottom: 7px;
+    }
+
+    .pub-item-venue {
+      font-size: 13px;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+
+    .pub-item-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pub-item-tag {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #eff6ff;
+      border: 1px solid rgba(148,163,184,0.5);
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .pub-item-side {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      min-width: 92px;
+    }
+
+    .pub-cited {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 76px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid rgba(148,163,184,0.45);
+      color: #0f172a;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .pub-cited small {
+      display: block;
+      font-size: 10px;
+      color: #64748b;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .pub-side-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1d4ed8;
+      text-decoration: none;
+    }
+
+    .pub-note {
+      background: #c7d2fe;
+      padding: 50px 40px 56px;
+    }
+
+    .pub-note-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .pub-note-card {
+      background: rgba(255,255,255,0.92);
+      border-radius: 24px;
+      border: 1px solid rgba(148,163,184,0.3);
+      box-shadow: 0 14px 34px rgba(15,23,42,0.12);
+      padding: 24px 22px;
+      font-size: 14px;
+      color: #1e293b;
+    }
+
+    .pub-note-card strong {
+      color: #0f172a;
+    }
+
+    @media (max-width: 900px) {
+      .pub-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      /* ---------------- OPTION 2 ---------------- */
-      if (exists("#heroOption2")) {
-        const heroTL2 = gsap.timeline({
-          scrollTrigger: {
-            trigger: "#heroOption2",
-            start: "top top",
-            end: "+=220%",
-            scrub: true,
-            pin: true
-          }
-        });
-
-        heroTL2
-          .to(".hero2-main-media", {
-            scale: 0.9,
-            xPercent: -10,
-            yPercent: 12,
-            rotation: -6,
-            ease: "none"
-          }, 0)
-          .to(".hero2-right", {
-            yPercent: -20,
-            xPercent: 10,
-            autoAlpha: 0,
-            ease: "none"
-          }, 0.2)
-          .to(".hero2-bg-words span:nth-child(1)", {
-            xPercent: -30,
-            yPercent: -10,
-            rotation: -14,
-            ease: "none"
-          }, 0)
-          .to(".hero2-bg-words span:nth-child(2)", {
-            xPercent: 35,
-            rotation: 10,
-            ease: "none"
-          }, 0)
-          .to(".hero2-bg-words span:nth-child(3)", {
-            xPercent: -20,
-            rotation: -8,
-            ease: "none"
-          }, 0)
-          .to(".hero2-grid-frame", {
-            autoAlpha: 1,
-            scale: 1.05,
-            y: -10,
-            duration: 1.2,
-            ease: "power2.out"
-          }, 0.4)
-          .from(".hero2-grid-frame img", {
-            y: 80,
-            autoAlpha: 0,
-            stagger: 0.12,
-            duration: 0.9,
-            ease: "power2.out"
-          }, 0.45);
+      .pub-featured-grid {
+        grid-template-columns: minmax(0, 1fr);
       }
 
-      /* ---------------- OPTION 3 ---------------- */
-      if (exists("#heroOption3")) {
-        const heroTL3 = gsap.timeline({
-          scrollTrigger: {
-            trigger: "#heroOption3",
-            start: "top top",
-            end: "+=220%",
-            scrub: true,
-            pin: true
-          }
-        });
-
-        heroTL3
-          .to(".hero3-main-media", {
-            scale: 0.84,
-            yPercent: -6,
-            xPercent: 4,
-            rotation: 4,
-            ease: "none"
-          }, 0)
-          .to(".hero3-right", {
-            yPercent: -25,
-            autoAlpha: 0,
-            ease: "none"
-          }, 0.1)
-          .to(".hero3-bg-words span:nth-child(1)", {
-            xPercent: -25,
-            rotation: -10,
-            ease: "none"
-          }, 0)
-          .to(".hero3-bg-words span:nth-child(2)", {
-            xPercent: 30,
-            rotation: 12,
-            ease: "none"
-          }, 0)
-          .to(".hero3-bg-words span:nth-child(3)", {
-            xPercent: -15,
-            rotation: -8,
-            ease: "none"
-          }, 0)
-          .to(".hero3-grid-frame", {
-            autoAlpha: 1,
-            scale: 1.08,
-            y: -6,
-            duration: 1.2,
-            ease: "power2.out"
-          }, 0.35)
-          .from(".hero3-grid-frame img", {
-            y: 70,
-            autoAlpha: 0,
-            stagger: 0.13,
-            duration: 0.9,
-            ease: "power2.out"
-          }, 0.45)
-          .to(".hero3-bg-words span", {
-            autoAlpha: 0,
-            duration: 0.9,
-            ease: "power1.out"
-          }, 1.5);
+      .pub-item {
+        grid-template-columns: minmax(0, 1fr);
       }
 
-      /* =====================================================
-         PROJECTS PINNED BIG SLIDER
-      ===================================================== */
-      const slides = $$(".project-slide");
-      if (slides.length && exists(".projects-pin")) {
-        const projTL = gsap.timeline({
-          scrollTrigger: {
-            trigger: ".projects-pin",
-            start: "top top",
-            end: "+=" + (slides.length * 180) + "%",
-            scrub: true,
-            pin: true
-          }
-        });
-
-        slides.forEach((slide, i) => {
-          const enterAt = i * 1.0;
-          const leaveAt = enterAt + 0.75;
-
-          projTL.to(slide, {
-            autoAlpha: 1,
-            scale: 1.08,
-            zIndex: 10 + i,
-            duration: 0.8,
-            ease: "power2.out"
-          }, enterAt);
-
-          if (i < slides.length - 1) {
-            projTL.to(slide, {
-              autoAlpha: 0,
-              scale: 0.9,
-              duration: 0.8,
-              ease: "power2.in"
-            }, leaveAt);
-          }
-        });
-      }
-    },
-
-    "(max-width: 767px)": function () {
-      ["#heroOption1", "#heroOption2", "#heroOption3"].forEach((id, idx) => {
-        if (!exists(id)) return;
-
-        const mainSel = ".hero" + (idx + 1) + "-main-media";
-        const wordsSel = ".hero" + (idx + 1) + "-bg-words span";
-        const gridSel = ".hero" + (idx + 1) + "-grid-frame";
-
-        if (exists(mainSel)) {
-          gsap.to(mainSel, {
-            yPercent: -10,
-            scrollTrigger: {
-              trigger: id,
-              start: "top top",
-              end: "bottom top",
-              scrub: true
-            }
-          });
-        }
-
-        if (exists(wordsSel)) {
-          gsap.to(wordsSel, {
-            xPercent: (i) => (i % 2 === 0 ? -6 : 6),
-            scrollTrigger: {
-              trigger: id,
-              start: "top top",
-              end: "bottom top",
-              scrub: true
-            }
-          });
-        }
-
-        if (exists(gridSel)) {
-          gsap.from(gridSel, {
-            autoAlpha: 0,
-            scale: 0.9,
-            y: 40,
-            scrollTrigger: {
-              trigger: id,
-              start: "top 70%",
-              end: "bottom top",
-              scrub: true
-            }
-          });
-        }
-      });
-
-      if (exists(".project-slide")) {
-        gsap.from(".project-slide", {
-          y: 40,
-          autoAlpha: 0,
-          scale: 0.95,
-          stagger: 0.15,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".projects",
-            start: "top 80%"
-          }
-        });
+      .pub-item-side {
+        align-items: flex-start;
+        min-width: 0;
       }
     }
-  });
 
-  /* =========================================================
-     MAZE JOURNEY
-  ========================================================= */
-
-  ScrollTrigger.matchMedia({
-    "(min-width: 768px)": function () {
-      if (!exists("#journeyWrapper") || !exists(".scenes-inner") || !exists(".scene")) return;
-
-      const scenes = $$(".scene");
-      const inner = $(".scenes-inner");
-
-      const coords = [
-        { x: 0, y: 0 },
-        { x: 0, y: 1 },
-        { x: 0, y: 2 },
-        { x: 1, y: 2 },
-        { x: 2, y: 2 },
-        { x: 2, y: 3 },
-        { x: 3, y: 3 },
-        { x: 4, y: 3 },
-        { x: 4, y: 4 },
-        { x: 5, y: 4 },
-        { x: 5, y: 5 },
-        { x: 6, y: 5 }
-      ];
-
-      scenes.forEach((scene, i) => {
-        const c = coords[i];
-        if (!c) return;
-        gsap.set(scene, {
-          xPercent: c.x * 100,
-          yPercent: c.y * 100,
-          position: "absolute"
-        });
-      });
-
-      const journeyTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: "#journeyWrapper",
-          start: "top top",
-          end: () => "+=" + window.innerHeight * (coords.length + 2),
-          scrub: true,
-          pin: true
-        }
-      });
-
-      gsap.set(inner, {
-        xPercent: 0,
-        yPercent: 0,
-        scale: 1,
-        rotation: 0,
-        transformOrigin: "50% 50%"
-      });
-
-      const maxZoom = 1.18;
-      const zoomStep = (maxZoom - 1) / (coords.length - 1);
-
-      coords.forEach((c, i) => {
-        if (i === 0 || !c) return;
-
-        const tilt = (i % 2 === 0 ? -2 : 2);
-        const zoom = 1 + zoomStep * i;
-
-        journeyTl.to(inner, {
-          xPercent: -c.x * 100,
-          yPercent: -c.y * 100,
-          scale: zoom,
-          rotation: tilt,
-          duration: 1,
-          ease: "power2.inOut"
-        });
-      });
-
-      scenes.forEach((scene) => {
-        if (
-          scene.classList.contains("scene-hero") ||
-          scene.classList.contains("scene-hero-words")
-        ) {
-          gsap.set(scene, { autoAlpha: 1, scale: 1 });
-          return;
-        }
-
-        gsap.fromTo(scene,
-          { scale: 0.96, autoAlpha: 0.6 },
-          {
-            scale: 1,
-            autoAlpha: 1,
-            scrollTrigger: {
-              containerAnimation: journeyTl,
-              trigger: scene,
-              start: "center center",
-              end: "center center",
-              scrub: true
-            }
-          }
-        );
-      });
-
-      $$(".hero-parallax").forEach((el) => {
-        gsap.to(el, {
-          yPercent: -10,
-          ease: "none",
-          scrollTrigger: {
-            containerAnimation: journeyTl,
-            trigger: ".scene-hero",
-            start: "center center",
-            end: "bottom top",
-            scrub: true
-          }
-        });
-      });
-
-      if (exists(".scene-hero-words .hero-big-word")) {
-        const heroWordsTl = gsap.timeline({
-          scrollTrigger: {
-            containerAnimation: journeyTl,
-            trigger: ".scene-hero-words",
-            start: "top center",
-            end: "bottom top",
-            scrub: true
-          }
-        });
-
-        heroWordsTl
-          .fromTo(".scene-hero-words .hero-big-word", {
-            scale: 1.6,
-            yPercent: 30,
-            letterSpacing: "0.35em"
-          }, {
-            scale: 1,
-            yPercent: 0,
-            letterSpacing: "0.18em",
-            ease: "power2.out"
-          })
-          .fromTo(".scene-hero-words .hero-pill", {
-            y: 60,
-            opacity: 0
-          }, {
-            y: 0,
-            opacity: 1
-          }, "-=0.2");
+    @media (max-width: 640px) {
+      .pub-intro,
+      .pub-featured,
+      .pub-library,
+      .pub-note {
+        padding-left: 20px;
+        padding-right: 20px;
       }
 
-      const wordsCollageScene = $(".scene-words-collage");
-      if (wordsCollageScene) {
-        const floatingWords = $(".floating-words", wordsCollageScene);
-        const collage = $(".collage", wordsCollageScene);
-
-        if (floatingWords) {
-          gsap.to(floatingWords, {
-            xPercent: -20,
-            yPercent: -10,
-            rotation: -4,
-            ease: "none",
-            scrollTrigger: {
-              containerAnimation: journeyTl,
-              trigger: wordsCollageScene,
-              start: "top bottom",
-              end: "bottom -200%",
-              scrub: true
-            }
-          });
-        }
-
-        if (collage) {
-          gsap.fromTo(collage,
-            { scale: 1.1 },
-            {
-              scale: 0.95,
-              scrollTrigger: {
-                containerAnimation: journeyTl,
-                trigger: wordsCollageScene,
-                start: "top center",
-                end: "bottom top",
-                scrub: true
-              }
-            }
-          );
-        }
+      .pub-stats {
+        grid-template-columns: minmax(0, 1fr);
       }
 
-      scenes.forEach((scene) => {
-        if (
-          scene.classList.contains("scene-hero") ||
-          scene.classList.contains("scene-hero-words")
-        ) return;
+      .pub-year-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
 
-        const items = $$(
-          ".scene-tag, .scene-title, .scene-body, .scene-list li, .scene-meta",
-          scene
-        );
+      .pub-feature-title {
+        font-size: 19px;
+      }
 
-        if (!items.length) return;
-
-        gsap.from(items, {
-          y: 30,
-          opacity: 0,
-          stagger: 0.08,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            containerAnimation: journeyTl,
-            trigger: scene,
-            start: "center center+=80",
-            toggleActions: "play none none reverse"
-          }
-        });
-      });
-
-      $$(".scene-media, .collage").forEach((el) => {
-        const scene = el.closest(".scene");
-        if (!scene) return;
-
-        gsap.fromTo(el,
-          { scale: 1.04 },
-          {
-            scale: 0.98,
-            ease: "none",
-            scrollTrigger: {
-              containerAnimation: journeyTl,
-              trigger: scene,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true
-            }
-          }
-        );
-      });
-
-      window.addEventListener("resize", () => ScrollTrigger.refresh());
-    },
-
-    "(max-width: 767px)": function () {
-      $$("#journeyWrapper .scene").forEach((scene, index) => {
-        gsap.from(scene, {
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          delay: index * 0.05,
-          scrollTrigger: {
-            trigger: scene,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-          }
-        });
-      });
+      .pub-item-title {
+        font-size: 16px;
+      }
     }
-  });
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <div class="nav-left">
+        <div class="window-dots">
+          <div class="window-dot"></div>
+          <div class="window-dot"></div>
+          <div class="window-dot"></div>
+        </div>
+        <div class="logo">Saif Aura</div>
+      </div>
 
-  /* =========================================================
-     STILLNESS SECTION
-  ========================================================= */
+      <div class="nav-right">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="projects.html">Projects</a>
+        <a class="nav-link" href="publications.html">Publications</a>
+        <a class="nav-link" href="teaching.html">Teaching</a>
+        <a class="nav-link" href="supervision.html">Supervision</a>
+        <button class="btn-nav" onclick="window.location.href='mailto:saif.hadj-sassi@list.lu'">Email me</button>
+      </div>
+    </header>
 
-  const bgLines = $$(".bg-line");
-  bgLines.forEach((line, i) => {
-    gsap.fromTo(line,
-      {
-        xPercent: i % 2 === 0 ? -20 : 20,
-        rotation: i % 2 === 0 ? -8 : 8
-      },
-      {
-        xPercent: i % 2 === 0 ? 10 : -10,
-        rotation: i % 2 === 0 ? 4 : -4,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".stillness-section",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      }
-    );
-  });
+    <main class="pub-page-wrap">
+      <!-- ====================================================
+           HERO
+      ==================================================== -->
+      <section class="hero-section hero-option1" id="heroOption1">
+        <div class="hero-inner">
+          <div class="hero-left">
+            <div class="hero-wave"></div>
+            <div class="hero-stripes"></div>
 
-  if (exists(".stillness-heading")) {
-    gsap.from(".stillness-heading", {
-      y: 40,
-      autoAlpha: 0,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".stillness-section",
-        start: "top 80%"
-      }
-    });
-  }
+            <div class="hero-bg-words hero1-bg-words">
+              <span>PUBLICATIONS</span>
+              <span>XR • AI • IOT</span>
+              <span>SCHOLARLY WORK</span>
+            </div>
 
-  if (exists(".stillness-collage")) {
-    gsap.from(".stillness-collage", {
-      y: 60,
-      scale: 0.85,
-      autoAlpha: 0,
-      duration: 1.1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".stillness-section",
-        start: "top 75%"
-      }
-    });
-  }
+            <div class="hero-main-media hero1-main-media">
+              <img src="https://picsum.photos/1200/800?random=210" alt="Publications hero placeholder image" />
+            </div>
 
-  /* =========================================================
-     MARQUEE
-  ========================================================= */
+            <div class="hero-grid-frame hero1-grid-frame">
+              <img src="https://picsum.photos/600/400?random=211" alt="">
+              <img src="https://picsum.photos/600/400?random=212" alt="">
+              <img src="https://picsum.photos/600/400?random=213" alt="">
+              <img src="https://picsum.photos/600/400?random=214" alt="">
+            </div>
+          </div>
 
-  const marquee = $(".marquee-track");
-  if (marquee) {
-    gsap.to(marquee, {
-      xPercent: -50,
-      repeat: -1,
-      duration: 30,
-      ease: "none"
-    });
+          <div class="hero-right hero1-right">
+            <div class="hero-tag">PUBLICATION PORTFOLIO</div>
+            <h1 class="hero-title">
+              Publications of Mohamed Saifeddine Hadj Sassi
+            </h1>
+            <p class="hero-body">
+              A focused publication page across rehabilitation XR, cognitive IoT, air-quality monitoring,
+              augmented reality, accessibility, deep learning, and human-centered immersive systems.
+            </p>
+            <div class="hero-meta">
+              Luxembourg Institute of Science and Technology<br>
+              Verified email at list.lu<br>
+              <a href="https://scholar.google.com/citations?user=34ktonkAAAAJ" target="_blank" rel="noreferrer">Google Scholar profile</a> ·
+              <a href="https://orcid.org/0000-0002-6147-6921" target="_blank" rel="noreferrer">ORCID</a>
+            </div>
+            <div class="hero-chips">
+              <div class="chip">XR Rehabilitation</div>
+              <div class="chip">Cognitive IoT</div>
+              <div class="chip">AR Accessibility</div>
+              <div class="chip">Air Quality Systems</div>
+            </div>
+            <div class="hero-scroll-hint">
+              <div class="hero-scroll-circle">↓</div>
+              <span>A cleaner, organized publication template.</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    gsap.to(marquee, {
-      skewX: 5,
-      repeat: -1,
-      yoyo: true,
-      duration: 3,
-      ease: "sine.inOut"
-    });
-  }
+      <!-- ====================================================
+           INTRO / STATS
+      ==================================================== -->
+      <section class="pub-intro">
+        <div class="pub-intro-inner">
+          <div class="section-eyebrow">Research profile</div>
+          <h2 class="section-title">Selected impact at a glance</h2>
+          <p class="section-sub">
+            A streamlined overview based on your Google Scholar profile details and publication list.
+          </p>
 
-  /* =========================================================
-     SKILLS / KEYWORDS / TIMELINE / EXTRAS
-  ========================================================= */
+          <div class="pub-stats">
+            <article class="pub-stat">
+              <div class="pub-stat-number">415</div>
+              <div class="pub-stat-label">Citations</div>
+              <div class="pub-stat-note">386 since 2021</div>
+            </article>
 
-  if (exists(".skill-card")) {
-    gsap.from(".skill-card", {
-      y: 40,
-      autoAlpha: 0,
-      scale: 0.96,
-      stagger: 0.1,
-      duration: 0.8,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".skills-grid",
-        start: "top 80%"
-      }
-    });
-  }
+            <article class="pub-stat">
+              <div class="pub-stat-number">11</div>
+              <div class="pub-stat-label">h-index</div>
+              <div class="pub-stat-note">steady recent impact</div>
+            </article>
 
-  if (exists(".keyword")) {
-    gsap.to(".keyword", {
-      y: (i) => (i % 2 === 0 ? 20 : -20),
-      x: (i) => (i % 2 === 0 ? -10 : 8),
-      duration: 4,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true,
-      stagger: 0.2
-    });
-  }
+            <article class="pub-stat">
+              <div class="pub-stat-number">13</div>
+              <div class="pub-stat-label">i10-index</div>
+              <div class="pub-stat-note">12 since 2021</div>
+            </article>
 
-  if (exists(".timeline-item")) {
-    gsap.from(".timeline-item", {
-      x: -40,
-      autoAlpha: 0,
-      stagger: 0.18,
-      duration: 0.8,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".timeline-inner",
-        start: "top 80%"
-      }
-    });
-  }
+            <article class="pub-stat">
+              <div class="pub-stat-number">26</div>
+              <div class="pub-stat-label">Listed works</div>
+              <div class="pub-stat-note">2019 → 2026</div>
+            </article>
+          </div>
+        </div>
+      </section>
 
-  if (exists(".timeline-aside")) {
-    gsap.from(".timeline-aside", {
-      x: 40,
-      autoAlpha: 0,
-      duration: 0.8,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".timeline-inner",
-        start: "top 75%"
-      }
-    });
-  }
+      <!-- ====================================================
+           STILLNESS
+      ==================================================== -->
+      <section class="stillness-section">
+        <div class="stillness-inner">
+          <div class="stillness-text">
+            <div class="stillness-bg-lines">
+              <span class="bg-line">Systems that remain usable*</span>
+              <span class="bg-line">XR, AI, IoT and real contexts.</span>
+              <span class="bg-line">Rehabilitation, safety, monitoring.</span>
+              <span class="bg-line">Research with applied direction.</span>
+            </div>
 
-  if (exists(".extras-box")) {
-    gsap.from(".extras-box", {
-      y: 40,
-      autoAlpha: 0,
-      scale: 0.97,
-      stagger: 0.12,
-      duration: 0.8,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".extras-inner",
-        start: "top 80%"
-      }
-    });
-  }
+            <h2 class="stillness-heading">
+              CLEAR<br>&amp; ORGANIZED
+            </h2>
+            <p>
+              Instead of one long overwhelming list, this page highlights the strongest papers first,
+              then groups the full archive by year in a compact, readable format.
+            </p>
+          </div>
 
-  /* =========================================================
-     PUBLICATION PAGE SUPPORT
-     Use these classes in publications.html:
-     .pub-stat
-     .pub-feature-card
-     .pub-year-block
-     .pub-item
-     .pub-filter-chip
-  ========================================================= */
+          <div class="stillness-collage">
+            <div class="stillness-collage-inner">
+              <img src="https://picsum.photos/600/600?random=215" alt="">
+              <img src="https://picsum.photos/600/600?random=216" alt="">
+              <img src="https://picsum.photos/600/600?random=217" alt="">
+              <img src="https://picsum.photos/600/600?random=218" alt="">
+            </div>
+          </div>
+        </div>
+      </section>
 
-  if (exists(".pub-stat")) {
-    gsap.from(".pub-stat", {
-      y: 30,
-      autoAlpha: 0,
-      scale: 0.95,
-      stagger: 0.08,
-      duration: 0.7,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".pub-stats",
-        start: "top 85%"
-      }
-    });
-  }
+      <!-- ====================================================
+           MARQUEE
+      ==================================================== -->
+      <section class="marquee">
+        <div class="marquee-track">
+          <span>XR REHABILITATION</span>
+          <span>COGNITIVE IOT</span>
+          <span>AIR QUALITY</span>
+          <span>AUGMENTED REALITY</span>
+          <span>ACCESSIBILITY</span>
+          <span>DEEP LEARNING</span>
+          <span>SAFETY TRAINING</span>
+          <span>HCI</span>
+          <span>XR REHABILITATION</span>
+        </div>
+      </section>
 
-  if (exists(".pub-feature-card")) {
-    gsap.from(".pub-feature-card", {
-      y: 50,
-      autoAlpha: 0,
-      scale: 0.96,
-      stagger: 0.1,
-      duration: 0.8,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".pub-featured-grid",
-        start: "top 80%"
-      }
-    });
-  }
+      <!-- ====================================================
+           FEATURED PAPERS
+      ==================================================== -->
+      <section class="pub-featured">
+        <div class="pub-featured-inner">
+          <div class="section-eyebrow">Featured papers</div>
+          <h2 class="section-title">Core publications</h2>
+          <p class="section-sub">
+            A small set of anchor papers that best represent the main directions of the publication profile.
+          </p>
 
-  if (exists(".pub-year-block")) {
-    $$(".pub-year-block").forEach((block) => {
-      gsap.from(block, {
-        y: 40,
-        autoAlpha: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: block,
-          start: "top 85%"
-        }
-      });
-    });
-  }
+          <div class="pub-featured-grid">
+            <article class="pub-feature-card">
+              <div class="pub-feature-top">
+                <div class="pub-badge-row">
+                  <span class="pub-badge">2022</span>
+                  <span class="pub-badge">112 citations</span>
+                  <span class="pub-badge">Sensors</span>
+                </div>
+                <img src="https://picsum.photos/900/600?random=219" alt="Featured paper placeholder">
+              </div>
+              <div class="pub-feature-body">
+                <div class="pub-feature-kicker">XR Rehabilitation</div>
+                <h3 class="pub-feature-title">Virtual reality for shoulder rehabilitation: accuracy evaluation of Oculus Quest 2</h3>
+                <div class="pub-feature-authors">A. Carnevale, I. Mannocchi, M.S.H. Sassi, M. Carli, G. De Luca, U.G. Longo, and co-authors</div>
+                <div class="pub-feature-venue">Sensors 22(15), 5511</div>
+                <div class="pub-feature-desc">
+                  One of the most cited papers in the profile, focused on validating Oculus Quest 2
+                  for rehabilitation-related measurement and XR clinical use.
+                </div>
+                <div class="pub-feature-links">
+                  <a class="pub-link" href="https://www.mdpi.com/1424-8220/22/15/5511" target="_blank" rel="noreferrer">Open paper</a>
+                </div>
+              </div>
+            </article>
 
-  if (exists(".pub-item")) {
-    $$(".pub-item").forEach((item, index) => {
-      gsap.from(item, {
-        x: index % 2 === 0 ? -24 : 24,
-        autoAlpha: 0,
-        duration: 0.65,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: item,
-          start: "top 90%"
-        }
-      });
-    });
-  }
+            <article class="pub-feature-card">
+              <div class="pub-feature-top">
+                <div class="pub-badge-row">
+                  <span class="pub-badge">2019</span>
+                  <span class="pub-badge">50 citations</span>
+                  <span class="pub-badge">Procedia</span>
+                </div>
+                <img src="https://picsum.photos/900/600?random=220" alt="Featured paper placeholder">
+              </div>
+              <div class="pub-feature-body">
+                <div class="pub-feature-kicker">Cognitive IoT</div>
+                <h3 class="pub-feature-title">A new architecture for cognitive internet of things and big data</h3>
+                <div class="pub-feature-authors">M.S.H. Sassi, F.G. Jedidi, L.C. Fourati</div>
+                <div class="pub-feature-venue">Procedia Computer Science 159, 534–543</div>
+                <div class="pub-feature-desc">
+                  A foundational systems paper shaping the broader line of work around cognitive IoT,
+                  big data architectures, and smart infrastructure thinking.
+                </div>
+                <div class="pub-feature-links">
+                  <a class="pub-link" href="https://scholar.google.com/citations?user=34ktonkAAAAJ" target="_blank" rel="noreferrer">View in Scholar</a>
+                </div>
+              </div>
+            </article>
 
-  if (exists(".pub-filter-chip")) {
-    gsap.from(".pub-filter-chip", {
-      y: 16,
-      autoAlpha: 0,
-      stagger: 0.04,
-      duration: 0.4,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".pub-filters",
-        start: "top 92%"
-      }
-    });
-  }
+            <article class="pub-feature-card">
+              <div class="pub-feature-top">
+                <div class="pub-badge-row">
+                  <span class="pub-badge">2022</span>
+                  <span class="pub-badge">35 citations</span>
+                  <span class="pub-badge">Computer Networks</span>
+                </div>
+                <img src="https://picsum.photos/900/600?random=221" alt="Featured paper placeholder">
+              </div>
+              <div class="pub-feature-body">
+                <div class="pub-feature-kicker">Air Quality Monitoring</div>
+                <h3 class="pub-feature-title">Comprehensive survey on air quality monitoring systems based on emerging computing and communication technologies</h3>
+                <div class="pub-feature-authors">M.S.H. Sassi, L.C. Fourati</div>
+                <div class="pub-feature-venue">Computer Networks 209, 108904</div>
+                <div class="pub-feature-desc">
+                  A broad survey paper connecting communication technologies, sensing,
+                  monitoring architectures, and emerging computing approaches.
+                </div>
+                <div class="pub-feature-links">
+                  <a class="pub-link" href="https://www.sciencedirect.com/science/article/pii/S1389128622000998" target="_blank" rel="noreferrer">Open paper</a>
+                </div>
+              </div>
+            </article>
 
-  /* =========================================================
-     GENERIC CARD REVEALS
-  ========================================================= */
+            <article class="pub-feature-card">
+              <div class="pub-feature-top">
+                <div class="pub-badge-row">
+                  <span class="pub-badge">2024</span>
+                  <span class="pub-badge">13 citations</span>
+                  <span class="pub-badge">Multimedia Tools</span>
+                </div>
+                <img src="https://picsum.photos/900/600?random=222" alt="Featured paper placeholder">
+              </div>
+              <div class="pub-feature-body">
+                <div class="pub-feature-kicker">XR Design Guidelines</div>
+                <h3 class="pub-feature-title">Definition of guidelines for virtual reality application design based on visual attention</h3>
+                <div class="pub-feature-authors">S. Baldoni, M.S. Hadj Sassi, M. Carli, F. Battisti</div>
+                <div class="pub-feature-venue">Multimedia Tools and Applications 83(16), 49615–49640</div>
+                <div class="pub-feature-desc">
+                  A strong methodological contribution around how visual attention can guide
+                  the design of more effective VR applications.
+                </div>
+                <div class="pub-feature-links">
+                  <a class="pub-link" href="https://link.springer.com/article/10.1007/s11042-023-17488-y" target="_blank" rel="noreferrer">Open paper</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
 
-  animateOnScroll(".content-card", {
-    y: 34,
-    duration: 0.75,
-    start: "top 88%"
-  });
+      <!-- ====================================================
+           FULL LIBRARY
+      ==================================================== -->
+      <section class="pub-library">
+        <div class="pub-library-inner">
+          <div class="section-eyebrow">Full archive</div>
+          <h2 class="section-title">Publication library</h2>
+          <p class="section-sub">
+            Full list, grouped by year, so the page stays structured and easy to scan.
+          </p>
 
-  animateOnScroll(".list-card", {
-    y: 28,
-    duration: 0.7,
-    start: "top 88%"
-  });
+          <div class="pub-filters">
+            <div class="pub-filter-chip">XR</div>
+            <div class="pub-filter-chip">Rehabilitation</div>
+            <div class="pub-filter-chip">Cognitive IoT</div>
+            <div class="pub-filter-chip">Air Quality</div>
+            <div class="pub-filter-chip">Accessibility</div>
+            <div class="pub-filter-chip">Deep Learning</div>
+            <div class="pub-filter-chip">HCI</div>
+          </div>
 
-  animateOnScroll(".metric-box", {
-    y: 24,
-    scale: 0.95,
-    duration: 0.6,
-    start: "top 92%"
-  });
-});
+          <!-- 2026 -->
+          <div class="pub-year-block">
+            <div class="pub-year-card">
+              <div class="pub-year-head">
+                <div class="pub-year-title">2026</div>
+                <div class="pub-year-count">1 publication</div>
+              </div>
+              <div class="pub-items">
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Intergenerational Workshop for Co-designing XR Application Storyboard to Support Older Adults in Daily Tasks: Methodology and Preliminary results</div>
+                    <div class="pub-item-authors">M. Ismael, V. Maquil, M. Hoffmann, R. McCall, M.S. Hadj Sassi, and co-authors</div>
+                    <div class="pub-item-venue">Frontiers in Computer Science 8, 1763935</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">XR</span>
+                      <span class="pub-item-tag">Co-design</span>
+                      <span class="pub-item-tag">Older Adults</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>—</div></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2025 -->
+          <div class="pub-year-block">
+            <div class="pub-year-card">
+              <div class="pub-year-head">
+                <div class="pub-year-title">2025</div>
+                <div class="pub-year-count">1 publication</div>
+              </div>
+              <div class="pub-items">
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Integrating IoT and AI solutions for addressing urbanism challenges</div>
+                    <div class="pub-item-authors">O. Wali, M.S.H. Sassi</div>
+                    <div class="pub-item-venue">Addressing urbanism challenges with AI and the internet of things, 69–110</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">IoT</span>
+                      <span class="pub-item-tag">AI</span>
+                      <span class="pub-item-tag">Urbanism</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>2</div></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2024 -->
+          <div class="pub-year-block">
+            <div class="pub-year-card">
+              <div class="pub-year-head">
+                <div class="pub-year-title">2024</div>
+                <div class="pub-year-count">4 publications</div>
+              </div>
+              <div class="pub-items">
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Definition of guidelines for virtual reality application design based on visual attention</div>
+                    <div class="pub-item-authors">S. Baldoni, M.S. Hadj Sassi, M. Carli, F. Battisti</div>
+                    <div class="pub-item-venue">Multimedia Tools and Applications 83(16), 49615–49640</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">VR</span>
+                      <span class="pub-item-tag">Visual Attention</span>
+                      <span class="pub-item-tag">Guidelines</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>13</div></div>
+                    <a class="pub-side-link" href="https://link.springer.com/article/10.1007/s11042-023-17488-y" target="_blank" rel="noreferrer">Link</a>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Design cognitive IoT architecture framework for immersive visual technologies of air quality monitoring systems</div>
+                    <div class="pub-item-authors">M.S. Hadj Sassi, L. Chaari Fourati</div>
+                    <div class="pub-item-venue">Multimedia Tools and Applications 83(17), 51615–51646</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Cognitive IoT</span>
+                      <span class="pub-item-tag">Air Quality</span>
+                      <span class="pub-item-tag">Immersive Tech</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>3</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Pozyx technology with SDN for advanced indoor air quality monitoring and management</div>
+                    <div class="pub-item-authors">M.S.H. Sassi, L.C. Fourati</div>
+                    <div class="pub-item-venue">Soft Computing 28(20), 12345–12358</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Indoor Positioning</span>
+                      <span class="pub-item-tag">SDN</span>
+                      <span class="pub-item-tag">Air Quality</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>—</div></div>
+                    <a class="pub-side-link" href="https://link.springer.com/article/10.1007/s00500-024-09952-0" target="_blank" rel="noreferrer">Link</a>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Sustainability and Human-Computer Interactions: Challenges for Future Research</div>
+                    <div class="pub-item-authors">L. Schwartz, V. Maquil, M.S.H. Sassi</div>
+                    <div class="pub-item-venue">ERCIM News 2024 (138)</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">HCI</span>
+                      <span class="pub-item-tag">Sustainability</span>
+                      <span class="pub-item-tag">Perspective</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>—</div></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2023 -->
+          <div class="pub-year-block">
+            <div class="pub-year-card">
+              <div class="pub-year-head">
+                <div class="pub-year-title">2023</div>
+                <div class="pub-year-count">3 publications</div>
+              </div>
+              <div class="pub-items">
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Immersive virtual reality for shoulder rehabilitation: evaluation of a physical therapy program executed with Oculus Quest 2</div>
+                    <div class="pub-item-authors">U.G. Longo, A. Carnevale, F. Andreoli, I. Mannocchi, M. Bravi, M.S.H. Sassi, and co-authors</div>
+                    <div class="pub-item-venue">BMC Musculoskeletal Disorders 24(1), 859</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Rehabilitation</span>
+                      <span class="pub-item-tag">VR</span>
+                      <span class="pub-item-tag">Clinical Study</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>29</div></div>
+                    <a class="pub-side-link" href="https://link.springer.com/article/10.1186/s12891-023-06861-5" target="_blank" rel="noreferrer">Link</a>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Performance evaluation of an immersive virtual reality application for rehabilitation after arthroscopic rotator cuff repair</div>
+                    <div class="pub-item-authors">A. Carnevale, I. Mannocchi, E. Schena, M. Carli, M.S.H. Sassi, M. Marino, and co-authors</div>
+                    <div class="pub-item-venue">Bioengineering 10(11), 1305</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">VR</span>
+                      <span class="pub-item-tag">Rehabilitation</span>
+                      <span class="pub-item-tag">Evaluation</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>13</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Résolution de problèmes de sélection de caractéristiques à l'aide de métaheuristiques</div>
+                    <div class="pub-item-authors">M. Sassi</div>
+                    <div class="pub-item-venue">Optimisation et apprentissage, 59</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Optimization</span>
+                      <span class="pub-item-tag">Metaheuristics</span>
+                      <span class="pub-item-tag">Feature Selection</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>—</div></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2022 -->
+          <div class="pub-year-block">
+            <div class="pub-year-card">
+              <div class="pub-year-head">
+                <div class="pub-year-title">2022</div>
+                <div class="pub-year-count">4 publications</div>
+              </div>
+              <div class="pub-items">
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Virtual reality for shoulder rehabilitation: accuracy evaluation of Oculus Quest 2</div>
+                    <div class="pub-item-authors">A. Carnevale, I. Mannocchi, M.S.H. Sassi, M. Carli, G. De Luca, U.G. Longo, and co-authors</div>
+                    <div class="pub-item-venue">Sensors 22(15), 5511</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">XR</span>
+                      <span class="pub-item-tag">Rehabilitation</span>
+                      <span class="pub-item-tag">Accuracy</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>112</div></div>
+                    <a class="pub-side-link" href="https://www.mdpi.com/1424-8220/22/15/5511" target="_blank" rel="noreferrer">Link</a>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Comprehensive survey on air quality monitoring systems based on emerging computing and communication technologies</div>
+                    <div class="pub-item-authors">M.S.H. Sassi, L.C. Fourati</div>
+                    <div class="pub-item-venue">Computer Networks 209, 108904</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Survey</span>
+                      <span class="pub-item-tag">Air Quality</span>
+                      <span class="pub-item-tag">Communication Tech</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>35</div></div>
+                    <a class="pub-side-link" href="https://www.sciencedirect.com/science/article/pii/S1389128622000998" target="_blank" rel="noreferrer">Link</a>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Simulation-based virtual reality training for firefighters</div>
+                    <div class="pub-item-authors">M.S.H. Sassi, F. Battisti, M. Carli</div>
+                    <div class="pub-item-venue">Electronic Imaging 34, 1–5</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">VR</span>
+                      <span class="pub-item-tag">Firefighters</span>
+                      <span class="pub-item-tag">Training</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>5</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">A New Model for Cognitive IVT based on IoT for Critical Safety Solutions: Firefighter Use Case</div>
+                    <div class="pub-item-authors">M.S.H. Sassi, M. Saghafian, F. Battisti, M. Carli</div>
+                    <div class="pub-item-venue">2022 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Critical Safety</span>
+                      <span class="pub-item-tag">IoT</span>
+                      <span class="pub-item-tag">VR</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>—</div></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2021 -->
+          <div class="pub-year-block">
+            <div class="pub-year-card">
+              <div class="pub-year-head">
+                <div class="pub-year-title">2021</div>
+                <div class="pub-year-count">4 publications</div>
+              </div>
+              <div class="pub-items">
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Deep learning and augmented reality for IoT-based air quality monitoring and prediction system</div>
+                    <div class="pub-item-authors">M.S.H. Sassi, L.C. Fourati</div>
+                    <div class="pub-item-venue">2021 International Symposium on Networks, Computers and Communications</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Deep Learning</span>
+                      <span class="pub-item-tag">AR</span>
+                      <span class="pub-item-tag">Air Quality</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>15</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Knowledge management process for air quality systems based on data warehouse specification</div>
+                    <div class="pub-item-authors">M.S.H. Sassi, L.C. Fourati, M. Zekri, S.B. Yahia</div>
+                    <div class="pub-item-venue">Procedia Computer Science 192, 29–38</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Knowledge Management</span>
+                      <span class="pub-item-tag">Data Warehouse</span>
+                      <span class="pub-item-tag">Air Quality</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>11</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Architecture for real-time visualizing Arabic words with diacritics using augmented reality for visually impaired people</div>
+                    <div class="pub-item-authors">I. Ouali, M.S. Hadj Sassi, M. Ben Halima, A. Wali</div>
+                    <div class="pub-item-venue">International conference on advanced information networking and applications</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Accessibility</span>
+                      <span class="pub-item-tag">AR</span>
+                      <span class="pub-item-tag">Arabic Text</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>9</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Knowledge Management Process for Air Quality Systems based on Data Warehouse Specification</div>
+                    <div class="pub-item-authors">M.S. Hadj Sassi, L. Chaari Fourati, M. Zekri, S. Ben Yahia</div>
+                    <div class="pub-item-venue">Listed conference/journal record</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Air Quality</span>
+                      <span class="pub-item-tag">Knowledge Process</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>—</div></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2020 -->
+          <div class="pub-year-block">
+            <div class="pub-year-card">
+              <div class="pub-year-head">
+                <div class="pub-year-title">2020</div>
+                <div class="pub-year-count">4 publications</div>
+              </div>
+              <div class="pub-items">
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">A new architecture based AR for detection and recognition of objects and text to enhance navigation of visually impaired people</div>
+                    <div class="pub-item-authors">I. Ouali, M.S.H. Sassi, M.B. Halima, A. Wali</div>
+                    <div class="pub-item-venue">Procedia Computer Science 176, 602–611</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Accessibility</span>
+                      <span class="pub-item-tag">AR</span>
+                      <span class="pub-item-tag">Navigation</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>26</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Architecture for visualizing indoor air quality data with augmented reality based cognitive Internet of Things</div>
+                    <div class="pub-item-authors">M.S. Hadj Sassi, L. Chaari Fourati</div>
+                    <div class="pub-item-venue">International conference on advanced information networking and applications</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">AR</span>
+                      <span class="pub-item-tag">Indoor Air Quality</span>
+                      <span class="pub-item-tag">Cognitive IoT</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>17</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Investigation on deep learning methods for privacy and security challenges of cognitive IoV</div>
+                    <div class="pub-item-authors">M.S.H. Sassi, L.C. Fourati</div>
+                    <div class="pub-item-venue">2020 International Wireless Communications and Mobile Computing (IWCMC), 714–720</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Deep Learning</span>
+                      <span class="pub-item-tag">Security</span>
+                      <span class="pub-item-tag">IoV</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>13</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Architecture for Visualizing Indoor Air Quality Data with Augmented Reality Based Cognitive Internet of Things</div>
+                    <div class="pub-item-authors">M.S.H. Sassi, L.C. Fourati</div>
+                    <div class="pub-item-venue">Springer conference/chapter record</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">AR</span>
+                      <span class="pub-item-tag">Cognitive IoT</span>
+                      <span class="pub-item-tag">Air Quality</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>—</div></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2019 -->
+          <div class="pub-year-block">
+            <div class="pub-year-card">
+              <div class="pub-year-head">
+                <div class="pub-year-title">2019</div>
+                <div class="pub-year-count">5 publications</div>
+              </div>
+              <div class="pub-items">
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">A new architecture for cognitive internet of things and big data</div>
+                    <div class="pub-item-authors">M.S.H. Sassi, F.G. Jedidi, L.C. Fourati</div>
+                    <div class="pub-item-venue">Procedia Computer Science 159, 534–543</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Architecture</span>
+                      <span class="pub-item-tag">Cognitive IoT</span>
+                      <span class="pub-item-tag">Big Data</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>50</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Ontology alignment using stable matching</div>
+                    <div class="pub-item-authors">I. Ouali, F. Ghozzi, R. Taktak, M.S.H. Sassi</div>
+                    <div class="pub-item-venue">Procedia Computer Science 159, 746–755</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Ontology</span>
+                      <span class="pub-item-tag">Matching</span>
+                      <span class="pub-item-tag">Knowledge Systems</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>37</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Computer-aided software engineering (CASE) tool for big data and IoT architecture</div>
+                    <div class="pub-item-authors">M.S.H. Sassi, F.G. Jedidi, L.C. Fourati</div>
+                    <div class="pub-item-venue">2019 15th International Wireless Communications & Mobile Computing Conference</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">CASE Tool</span>
+                      <span class="pub-item-tag">Big Data</span>
+                      <span class="pub-item-tag">IoT</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>11</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Business information architecture for big data and Internet of Things</div>
+                    <div class="pub-item-authors">M.S.H. Sassi, L.C. Fourati, F.G. Jedidi</div>
+                    <div class="pub-item-venue">2019 15th International Wireless Communications & Mobile Computing Conference</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Business Architecture</span>
+                      <span class="pub-item-tag">Big Data</span>
+                      <span class="pub-item-tag">IoT</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>8</div></div>
+                  </div>
+                </article>
+
+                <article class="pub-item">
+                  <div class="pub-item-main">
+                    <div class="pub-item-title">Multi-oriented real-time Arabic scene text detection with deep fully convolutional networks</div>
+                    <div class="pub-item-authors">M.S.H. Sassi, I. Beltaief, M. Zekri, S.B. Yahia</div>
+                    <div class="pub-item-venue">2019 IEEE/ACS 16th International Conference on Computer Systems and Applications</div>
+                    <div class="pub-item-tags">
+                      <span class="pub-item-tag">Computer Vision</span>
+                      <span class="pub-item-tag">Arabic Text</span>
+                      <span class="pub-item-tag">FCN</span>
+                    </div>
+                  </div>
+                  <div class="pub-item-side">
+                    <div class="pub-cited"><div><small>Cited</small>4</div></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           NOTE
+      ==================================================== -->
+      <section class="pub-note">
+        <div class="pub-note-inner">
+          <div class="pub-note-card">
+            <strong>Note:</strong> this page is intentionally simplified and publication-centered.
+            It highlights major works first, then keeps the rest of the archive readable by year.
+            Later, you can add filters, BibTeX download buttons, DOI badges, and category tabs if you want.
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           CONTACT
+      ==================================================== -->
+      <section class="contact">
+        <p>
+          For collaborations, papers, invited talks, or academic exchange,
+          contact <a href="mailto:saif.hadj-sassi@list.lu">saif.hadj-sassi@list.lu</a>.
+        </p>
+        <p class="lang">
+          Google Scholar · ORCID · Luxembourg Institute of Science and Technology
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
