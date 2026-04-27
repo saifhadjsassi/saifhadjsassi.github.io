@@ -1,217 +1,372 @@
-/* =========================================================
-   PUBLICATIONS PAGE
-========================================================= */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publications | Mohamed Saifeddine Hadj Sassi</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <div class="nav-left">
+        <div class="window-dots">
+          <span class="window-dot"></span>
+          <span class="window-dot"></span>
+          <span class="window-dot"></span>
+        </div>
+        <a href="index.html" class="logo">Saif Hadj Sassi</a>
+      </div>
 
-.publications-page {
-  background: #e5edff;
-  padding: 56px 28px 80px;
-}
+      <nav class="nav-right">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="projects.html">Projects</a>
+        <a class="nav-link active" href="publications.html">Publications</a>
+        <a class="nav-link" href="teaching.html">Teaching</a>
+        <a class="nav-link" href="supervision.html">Supervision</a>
+        <a class="nav-link" href="contact.html">Contact</a>
+      </nav>
+    </header>
 
-.pub-section {
-  max-width: 1180px;
-  margin: 0 auto 54px;
-}
+    <main class="publications-page">
 
-.pub-section-head {
-  margin-bottom: 24px;
-}
+      <!-- ONLY PUBLICATIONS CONTENT -->
+      <section class="pub-section pub-featured">
+        <div class="pub-section-head">
+          <div class="section-eyebrow">Featured papers</div>
+          <h1 class="section-title">Core publications</h1>
+          <p class="section-sub">
+            Selected papers representing the main research directions: virtual reality rehabilitation,
+            cognitive IoT, augmented reality, and intelligent monitoring systems.
+          </p>
+        </div>
 
-.pub-featured .section-title,
-.pub-listing .section-title {
-  font-size: clamp(34px, 5vw, 52px);
-  line-height: 1.05;
-  color: #0f172a;
-  margin-bottom: 14px;
-}
+        <div class="featured-papers">
 
-.pub-featured .section-sub,
-.pub-listing .section-sub {
-  max-width: 760px;
-  font-size: 16px;
-  line-height: 1.7;
-  color: #334155;
-}
+          <!-- CARD 1 -->
+          <article class="featured-paper">
+            <div class="featured-paper-media">
+              <img src="https://picsum.photos/900/620?random=101" alt="Virtual reality rehabilitation paper" />
+            </div>
+            <div class="featured-paper-content">
+              <div class="paper-topline">
+                <span class="paper-badge">2022</span>
+                <span class="paper-badge">112 citations</span>
+                <span class="paper-badge">Sensors</span>
+              </div>
 
-.featured-papers {
-  display: grid;
-  gap: 28px;
-}
+              <h2 class="paper-title">
+                Virtual reality for shoulder rehabilitation: accuracy evaluation of Oculus Quest 2
+              </h2>
 
-.featured-paper {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  align-items: stretch;
-  overflow: hidden;
-  border-radius: 30px;
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(148,163,184,0.25);
-  box-shadow: 0 20px 50px rgba(15,23,42,0.12);
-  min-height: 380px;
-}
+              <p class="paper-authors">
+                A. Carnevale, I. Mannocchi, M. S. H. Sassi, M. Carli, G. De Luca, U. G. Longo, et al.
+              </p>
 
-.featured-paper.swap .featured-paper-media {
-  order: 2;
-}
+              <p class="paper-description">
+                A highly cited study evaluating the accuracy and rehabilitation potential of Oculus Quest 2
+                in shoulder rehabilitation scenarios, combining immersive VR and clinical performance analysis.
+              </p>
 
-.featured-paper.swap .featured-paper-content {
-  order: 1;
-}
+              <div class="paper-meta">
+                <span>Sensors 22(15), 5511</span>
+              </div>
+            </div>
+          </article>
 
-.featured-paper-media {
-  position: relative;
-  min-height: 100%;
-  overflow: hidden;
-}
+          <!-- CARD 2 : swapped -->
+          <article class="featured-paper swap">
+            <div class="featured-paper-media">
+              <img src="https://picsum.photos/900/620?random=102" alt="Cognitive IoT architecture paper" />
+            </div>
+            <div class="featured-paper-content">
+              <div class="paper-topline">
+                <span class="paper-badge">2019</span>
+                <span class="paper-badge">50 citations</span>
+                <span class="paper-badge">Procedia Computer Science</span>
+              </div>
 
-.featured-paper-media img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-}
+              <h2 class="paper-title">
+                A new architecture for cognitive internet of things and big data
+              </h2>
 
-.featured-paper-content {
-  padding: 34px 34px 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(255,255,255,0.88), rgba(239,246,255,0.92));
-}
+              <p class="paper-authors">
+                M. S. H. Sassi, F. G. Jedidi, L. C. Fourati
+              </p>
 
-.paper-topline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 18px;
-}
+              <p class="paper-description">
+                This paper proposes an architecture bridging cognitive IoT systems and big data pipelines,
+                offering a structured foundation for intelligent sensing, processing, and decision support.
+              </p>
 
-.paper-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.9);
-  border: 1px solid rgba(148,163,184,0.35);
-  color: #0f172a;
-  font-size: 14px;
-  font-weight: 600;
-}
+              <div class="paper-meta">
+                <span>Procedia Computer Science 159, 534–543</span>
+              </div>
+            </div>
+          </article>
 
-.paper-title {
-  font-size: clamp(24px, 2.6vw, 34px);
-  line-height: 1.15;
-  color: #0f172a;
-  margin-bottom: 14px;
-}
+          <!-- CARD 3 -->
+          <article class="featured-paper">
+            <div class="featured-paper-media">
+              <img src="https://picsum.photos/900/620?random=103" alt="Air quality monitoring survey paper" />
+            </div>
+            <div class="featured-paper-content">
+              <div class="paper-topline">
+                <span class="paper-badge">2022</span>
+                <span class="paper-badge">35 citations</span>
+                <span class="paper-badge">Computer Networks</span>
+              </div>
 
-.paper-authors {
-  font-size: 15px;
-  color: #475569;
-  margin-bottom: 14px;
-  line-height: 1.6;
-}
+              <h2 class="paper-title">
+                Comprehensive survey on air quality monitoring systems based on emerging computing and communication technologies
+              </h2>
 
-.paper-description {
-  font-size: 15px;
-  line-height: 1.75;
-  color: #334155;
-  margin-bottom: 18px;
-}
+              <p class="paper-authors">
+                M. S. H. Sassi, L. C. Fourati
+              </p>
 
-.paper-meta {
-  font-size: 14px;
-  color: #2563eb;
-  font-weight: 600;
-}
+              <p class="paper-description">
+                A survey paper reviewing modern air-quality monitoring systems through IoT, AI, communication
+                technologies, and data-driven environmental intelligence.
+              </p>
 
-/* ARCHIVE */
+              <div class="paper-meta">
+                <span>Computer Networks 209, 108904</span>
+              </div>
+            </div>
+          </article>
 
-.pub-year-group + .pub-year-group {
-  margin-top: 34px;
-}
+          <!-- CARD 4 : swapped -->
+          <article class="featured-paper swap">
+            <div class="featured-paper-media">
+              <img src="https://picsum.photos/900/620?random=104" alt="Immersive virtual reality rehabilitation paper" />
+            </div>
+            <div class="featured-paper-content">
+              <div class="paper-topline">
+                <span class="paper-badge">2023</span>
+                <span class="paper-badge">29 citations</span>
+                <span class="paper-badge">BMC Musculoskeletal Disorders</span>
+              </div>
 
-.pub-year-title {
-  font-size: 22px;
-  color: #0f172a;
-  margin-bottom: 14px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba(148,163,184,0.35);
-}
+              <h2 class="paper-title">
+                Immersive virtual reality for shoulder rehabilitation: evaluation of a physical therapy program executed with Oculus Quest 2
+              </h2>
 
-.pub-list {
-  display: grid;
-  gap: 14px;
-}
+              <p class="paper-authors">
+                U. G. Longo, A. Carnevale, F. Andreoli, I. Mannocchi, M. Bravi, M. S. H. Sassi, et al.
+              </p>
 
-.pub-item {
-  background: rgba(255,255,255,0.78);
-  border: 1px solid rgba(148,163,184,0.2);
-  border-radius: 20px;
-  padding: 18px 20px;
-  box-shadow: 0 10px 24px rgba(15,23,42,0.08);
-}
+              <p class="paper-description">
+                A follow-up rehabilitation study investigating the effectiveness of a VR-based physical therapy
+                program conducted with Oculus Quest 2 in a clinical setting.
+              </p>
 
-.pub-item h4 {
-  font-size: 18px;
-  line-height: 1.35;
-  color: #0f172a;
-  margin-bottom: 8px;
-}
+              <div class="paper-meta">
+                <span>BMC Musculoskeletal Disorders 24(1), 859</span>
+              </div>
+            </div>
+          </article>
 
-.pub-item p {
-  font-size: 14px;
-  color: #475569;
-  margin-bottom: 8px;
-  line-height: 1.6;
-}
+        </div>
+      </section>
 
-.pub-item span {
-  font-size: 13px;
-  color: #2563eb;
-  font-weight: 600;
-}
+      <section class="pub-section pub-listing">
+        <div class="pub-section-head">
+          <div class="section-eyebrow">All publications</div>
+          <h2 class="section-title">Publication archive</h2>
+        </div>
 
-/* ACTIVE NAV LINK */
-.nav-link.active {
-  color: #1d4ed8;
-  font-weight: 700;
-}
+        <div class="pub-year-group">
+          <h3 class="pub-year-title">2026</h3>
+          <div class="pub-list">
+            <article class="pub-item">
+              <h4>Intergenerational Workshop for Co-designing XR Application Storyboard to Support Older Adults in Daily Tasks: Methodology and Preliminary Results</h4>
+              <p>M. Ismael, V. Maquil, M. Hoffmann, R. McCall, M. S. Hadj Sassi, et al.</p>
+              <span>Frontiers in Computer Science, 2026</span>
+            </article>
+          </div>
+        </div>
 
-/* RESPONSIVE */
-@media (max-width: 980px) {
-  .featured-paper,
-  .featured-paper.swap {
-    grid-template-columns: 1fr;
-  }
+        <div class="pub-year-group">
+          <h3 class="pub-year-title">2025</h3>
+          <div class="pub-list">
+            <article class="pub-item">
+              <h4>Integrating IoT and AI Solutions for Addressing Urbanism Challenges</h4>
+              <p>O. Wali, M. S. H. Sassi</p>
+              <span>Addressing Urbanism Challenges with AI and the Internet of Things, 2025</span>
+            </article>
+          </div>
+        </div>
 
-  .featured-paper.swap .featured-paper-media,
-  .featured-paper.swap .featured-paper-content,
-  .featured-paper .featured-paper-media,
-  .featured-paper .featured-paper-content {
-    order: initial;
-  }
+        <div class="pub-year-group">
+          <h3 class="pub-year-title">2024</h3>
+          <div class="pub-list">
+            <article class="pub-item">
+              <h4>Definition of Guidelines for Virtual Reality Application Design Based on Visual Attention</h4>
+              <p>S. Baldoni, M. S. Hadj Sassi, M. Carli, F. Battisti</p>
+              <span>Multimedia Tools and Applications 83(16), 2024</span>
+            </article>
 
-  .featured-paper-media {
-    min-height: 260px;
-  }
-}
+            <article class="pub-item">
+              <h4>Design Cognitive IoT Architecture Framework for Immersive Visual Technologies of Air Quality Monitoring Systems</h4>
+              <p>M. S. Hadj Sassi, L. Chaari Fourati</p>
+              <span>Multimedia Tools and Applications 83(17), 2024</span>
+            </article>
 
-@media (max-width: 640px) {
-  .publications-page {
-    padding: 34px 16px 60px;
-  }
+            <article class="pub-item">
+              <h4>Pozyx Technology with SDN for Advanced Indoor Air Quality Monitoring and Management</h4>
+              <p>M. S. H. Sassi, L. C. Fourati</p>
+              <span>Soft Computing 28(20), 2024</span>
+            </article>
 
-  .featured-paper-content {
-    padding: 22px 18px 22px;
-  }
+            <article class="pub-item">
+              <h4>Sustainability and Human-Computer Interactions: Challenges for Future Research</h4>
+              <p>L. Schwartz, V. Maquil, M. S. H. Sassi</p>
+              <span>ERCIM News 138, 2024</span>
+            </article>
+          </div>
+        </div>
 
-  .paper-badge {
-    padding: 8px 14px;
-    font-size: 13px;
-  }
+        <div class="pub-year-group">
+          <h3 class="pub-year-title">2023</h3>
+          <div class="pub-list">
+            <article class="pub-item">
+              <h4>Immersive Virtual Reality for Shoulder Rehabilitation: Evaluation of a Physical Therapy Program Executed with Oculus Quest 2</h4>
+              <p>U. G. Longo, A. Carnevale, F. Andreoli, I. Mannocchi, M. Bravi, M. S. H. Sassi, et al.</p>
+              <span>BMC Musculoskeletal Disorders 24(1), 859</span>
+            </article>
 
-  .pub-item {
-    padding: 16px;
-  }
-}
+            <article class="pub-item">
+              <h4>Performance Evaluation of an Immersive Virtual Reality Application for Rehabilitation after Arthroscopic Rotator Cuff Repair</h4>
+              <p>A. Carnevale, I. Mannocchi, E. Schena, M. Carli, M. S. H. Sassi, M. Marino, et al.</p>
+              <span>Bioengineering 10(11), 1305</span>
+            </article>
+
+            <article class="pub-item">
+              <h4>Résolution de problèmes de sélection de caractéristiques à l'aide de métaheuristiques</h4>
+              <p>M. Sassi</p>
+              <span>Optimisation et apprentissage, 2023</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h3 class="pub-year-title">2022</h3>
+          <div class="pub-list">
+            <article class="pub-item">
+              <h4>Virtual Reality for Shoulder Rehabilitation: Accuracy Evaluation of Oculus Quest 2</h4>
+              <p>A. Carnevale, I. Mannocchi, M. S. H. Sassi, M. Carli, G. De Luca, U. G. Longo, et al.</p>
+              <span>Sensors 22(15), 5511</span>
+            </article>
+
+            <article class="pub-item">
+              <h4>Comprehensive Survey on Air Quality Monitoring Systems Based on Emerging Computing and Communication Technologies</h4>
+              <p>M. S. H. Sassi, L. C. Fourati</p>
+              <span>Computer Networks 209, 108904</span>
+            </article>
+
+            <article class="pub-item">
+              <h4>Simulation-based Virtual Reality Training for Firefighters</h4>
+              <p>M. S. H. Sassi, F. Battisti, M. Carli</p>
+              <span>Electronic Imaging 34, 1–5</span>
+            </article>
+
+            <article class="pub-item">
+              <h4>A New Model for Cognitive IVT Based on IoT for Critical Safety Solutions: Firefighter Use Case</h4>
+              <p>M. S. H. Sassi, M. Saghafian, F. Battisti, M. Carli</p>
+              <span>IEEE VR Workshops, 2022</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h3 class="pub-year-title">2021</h3>
+          <div class="pub-list">
+            <article class="pub-item">
+              <h4>Deep Learning and Augmented Reality for IoT-based Air Quality Monitoring and Prediction System</h4>
+              <p>M. S. H. Sassi, L. C. Fourati</p>
+              <span>ISNCC 2021</span>
+            </article>
+
+            <article class="pub-item">
+              <h4>Knowledge Management Process for Air Quality Systems Based on Data Warehouse Specification</h4>
+              <p>M. S. H. Sassi, L. C. Fourati, M. Zekri, S. B. Yahia</p>
+              <span>Procedia Computer Science 192, 29–38</span>
+            </article>
+
+            <article class="pub-item">
+              <h4>Architecture for Real-time Visualizing Arabic Words with Diacritics Using Augmented Reality for Visually Impaired People</h4>
+              <p>I. Ouali, M. S. Hadj Sassi, M. Ben Halima, A. Wali</p>
+              <span>AINA 2021</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h3 class="pub-year-title">2020</h3>
+          <div class="pub-list">
+            <article class="pub-item">
+              <h4>A New Architecture Based AR for Detection and Recognition of Objects and Text to Enhance Navigation of Visually Impaired People</h4>
+              <p>I. Ouali, M. S. H. Sassi, M. B. Halima, A. Wali</p>
+              <span>Procedia Computer Science 176, 602–611</span>
+            </article>
+
+            <article class="pub-item">
+              <h4>Architecture for Visualizing Indoor Air Quality Data with Augmented Reality Based Cognitive Internet of Things</h4>
+              <p>M. S. Hadj Sassi, L. Chaari Fourati</p>
+              <span>AINA 2020</span>
+            </article>
+
+            <article class="pub-item">
+              <h4>Investigation on Deep Learning Methods for Privacy and Security Challenges of Cognitive IoV</h4>
+              <p>M. S. H. Sassi, L. C. Fourati</p>
+              <span>IWCMC 2020, 714–720</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h3 class="pub-year-title">2019</h3>
+          <div class="pub-list">
+            <article class="pub-item">
+              <h4>A New Architecture for Cognitive Internet of Things and Big Data</h4>
+              <p>M. S. H. Sassi, F. G. Jedidi, L. C. Fourati</p>
+              <span>Procedia Computer Science 159, 534–543</span>
+            </article>
+
+            <article class="pub-item">
+              <h4>Ontology Alignment Using Stable Matching</h4>
+              <p>I. Ouali, F. Ghozzi, R. Taktak, M. S. H. Sassi</p>
+              <span>Procedia Computer Science 159, 746–755</span>
+            </article>
+
+            <article class="pub-item">
+              <h4>Computer-aided Software Engineering (CASE) Tool for Big Data and IoT Architecture</h4>
+              <p>M. S. H. Sassi, F. G. Jedidi, L. C. Fourati</p>
+              <span>IWCMC 2019</span>
+            </article>
+
+            <article class="pub-item">
+              <h4>Business Information Architecture for Big Data and Internet of Things</h4>
+              <p>M. S. H. Sassi, L. C. Fourati, F. G. Jedidi</p>
+              <span>IWCMC 2019</span>
+            </article>
+
+            <article class="pub-item">
+              <h4>Multi-oriented Real-time Arabic Scene Text Detection with Deep Fully Convolutional Networks</h4>
+              <p>M. S. H. Sassi, I. Beltaief, M. Zekri, S. B. Yahia</p>
+              <span>IEEE/ACS AICCSA 2019</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
