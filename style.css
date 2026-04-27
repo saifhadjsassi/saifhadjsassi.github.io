@@ -30,6 +30,11 @@ a {
   text-decoration: none;
 }
 
+img,
+video {
+  max-width: 100%;
+}
+
 /* =========================================================
    APP SHELL / HEADER
 ========================================================= */
@@ -128,6 +133,91 @@ main {
 }
 
 /* =========================================================
+   GENERIC PAGE HELPERS
+========================================================= */
+
+.section-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #1d4ed8;
+  margin-bottom: 6px;
+}
+
+.section-title {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #0f172a;
+}
+
+.section-sub {
+  font-size: 13px;
+  color: #1e293b;
+  max-width: 560px;
+}
+
+.content-grid,
+.content-grid-2,
+.content-grid-3,
+.list-stack,
+.metric-strip,
+.pub-featured-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.content-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.content-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.content-card,
+.list-card,
+.metric-box {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+}
+
+.content-card,
+.list-card {
+  padding: 20px;
+}
+
+.metric-strip {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.metric-box {
+  padding: 18px 16px;
+}
+
+.metric-number {
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.metric-label {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1d4ed8;
+}
+
+.metric-note {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #475569;
+}
+
+/* =========================================================
    GENERIC HERO LAYOUT
 ========================================================= */
 
@@ -193,7 +283,6 @@ main {
   white-space: nowrap;
 }
 
-/* different placements so they feel like a maze */
 .hero-option1 .hero-bg-words span:nth-child(1) { top: 8%; left: -4%; }
 .hero-option1 .hero-bg-words span:nth-child(2) { top: 52%; left: 15%; }
 .hero-option1 .hero-bg-words span:nth-child(3) { top: 30%; right: -12%; }
@@ -455,26 +544,6 @@ main {
 .projects-inner {
   max-width: 1120px;
   margin: 0 auto;
-}
-
-.section-eyebrow {
-  font-size: 11px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: #1d4ed8;
-  margin-bottom: 6px;
-}
-
-.section-title {
-  font-size: 22px;
-  margin-bottom: 10px;
-  color: #0f172a;
-}
-
-.section-sub {
-  font-size: 13px;
-  color: #1e293b;
-  max-width: 560px;
 }
 
 .projects-pin {
@@ -1205,7 +1274,6 @@ main {
   font-weight: 600;
 }
 
-/* Optional helper classes used by script.js */
 .pub-stats {
   display: grid;
   gap: 16px;
@@ -1219,16 +1287,6 @@ main {
 .list-card,
 .metric-box {
   will-change: transform, opacity;
-}
-
-.pub-featured-grid,
-.metric-strip,
-.list-stack,
-.content-grid,
-.content-grid-2,
-.content-grid-3 {
-  display: grid;
-  gap: 18px;
 }
 
 /* =========================================================
@@ -1340,6 +1398,12 @@ main {
 
   .collage {
     inset: 40px;
+  }
+
+  .content-grid-2,
+  .content-grid-3,
+  .metric-strip {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
